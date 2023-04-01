@@ -6,7 +6,6 @@ def reward_function(params):
     distance_from_center = params['distance_from_center']
     reward = 1e-3
     car_speed = params['speed']
-    car_speed = 2.0
     car_steering = params['steering_angle']
     car_steps = params['steps']
     progress = params['progress']
@@ -46,8 +45,6 @@ def reward_function(params):
         reward += 10.0
         speed +=5.0
         
- #  if car_steering == 0:
- #       car_speed +=5.0
     if car_speed < min_speed:
         reward -=2.0
         
