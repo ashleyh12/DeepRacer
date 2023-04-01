@@ -25,10 +25,10 @@ def reward_function(params):
    
     # Give higher reward if the car is closer to center line and vice versa
     if distance_from_center <= marker_1:
-        reward += 5.0
+        reward += 10.0
         car_speed += 3.0
     elif distance_from_center <= marker_2:
-        reward += 2.5
+        reward += 5.5
         car_speed +=1.5
     elif distance_from_center <= marker_3:
         reward += 1
@@ -42,11 +42,11 @@ def reward_function(params):
     # Give a high reward if no wheels go off the track and 
     # the car is somewhere in between the track borders 
     if all_wheels_on_track and (0.5*track_width - distance_from_center) >= 0.05:
-        reward += 10.0
-        speed +=5.0
+        reward += 15.0
+        speed +=7.0
         
     if car_speed < min_speed:
-        reward -=2.0
+        reward -=5.0
         
     if all_wheels_on_track and (car_steps>0):
         reward = (((progress/car_steps)*100) + (car_speed**2))
@@ -56,7 +56,7 @@ def reward_function(params):
    ABS_STEERING_THRESHOLD = 20.0
     
    if abs_steering > ABS_STEERING_THRESHOLD:
-       reward *= 0.5
+       reward -= 6.0
        
    if((car_steps%100) == 0) and (progress>((car_steps/TOTAL_NUM_STEPS)*100)):
        reward +=15.0
