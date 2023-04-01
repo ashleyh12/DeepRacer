@@ -1,4 +1,7 @@
- def reward_functions(params): 
+def reward_function(params):
+    # Example of rewarding the agent to follow center line
+
+    # Read input parameters
     track_width = params['track_width']
     distance_from_center = params['distance_from_center']
     reward = 1e-3
@@ -12,7 +15,7 @@
     # Total num of steps we want the car to finish the lap, it will vary depends on the track length
     TOTAL_NUM_STEPS = 300
 
-    
+#min speed I want the car to have
     min_speed = 2.5
 
     # Calculate 3 markers that are at varying distances away from the center line
@@ -20,9 +23,7 @@
     marker_2 = 0.25 * track_width
     marker_3 = 0.5 * track_width
     
-    if ((car_steps% 100) == 0) and (progress>((car_steps/TOTAL_NUM_STEPS)*100)):
-        reward +=15.0
-
+   
     # Give higher reward if the car is closer to center line and vice versa
     if distance_from_center <= marker_1:
         reward += 5.0
@@ -51,14 +52,18 @@
         reward -=2.0
         
     if all_wheels_on_track and (car_steps>0):
-        reward = ((progress/car_steps) * 100) + (car_speed**2)
+        reward = (((progress/car_steps)*100) + (car_speed**2))
     else:
         reward = 0.01
     
-    ABS_STEERING_THRESHOLD = 20.0
+   ABS_STEERING_THRESHOLD = 20.0
     
-    if abs_steering > ABS_STEERING_THRESHOLD:
-        reward *= 0.5
+   if abs_steering > ABS_STEERING_THRESHOLD:
+       reward *= 0.5
+       
+   if((car_steps%100) == 0) and (progress>((car_steps/TOTAL_NUM_STEPS)*100)):
+       reward +=15.0
+
 
     # Always return a float value
 
